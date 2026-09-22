@@ -20,13 +20,14 @@
      head (canonical, og:url, og:image, twitter:image) + JSON-LD + sitemap.xml if a custom domain is added. -->
 <link rel="canonical" href="https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/">
 
-<!-- Open Graph (image must be an absolute URL; upload a 1200x630 JPG to assets/social-share.jpg) -->
+<!-- Open Graph (absolute URL required; assets/social-share.jpg is 1200x630) -->
 <meta property="og:title" content="LKJ Compassionate Hanz | Geriatric Care in Point Fortin, Trinidad">
 <meta property="og:description" content="Professional, compassionate, Christ-centered geriatric care in Trinidad and Tobago. Speak with us on WhatsApp about care for your loved one.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_TT">
 <meta property="og:url" content="https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/">
 <meta property="og:image" content="https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/social-share.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="LKJ Compassionate Hanz Geriatric Care Facility">
@@ -37,8 +38,11 @@
 <meta name="twitter:description" content="Professional, compassionate, Christ-centered geriatric care in Trinidad and Tobago.">
 <meta name="twitter:image" content="https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/social-share.jpg">
 
-<link rel="icon" href="assets/lkj-logo.png" type="image/png">
-<link rel="apple-touch-icon" href="assets/lkj-logo.png">
+<!-- Icons (cream tile keeps the navy emblem visible on dark browser tabs) -->
+<link rel="icon" href="assets/favicon.ico" sizes="48x48">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 
 <!-- Fonts: loaded non-blocking. js/script.js switches media to "all" (no inline onload, so CSP stays strict). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +61,7 @@
   "description": "Professional, compassionate, Christ-centered geriatric care facility in Point Fortin, Trinidad and Tobago.",
   "url": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/",
   "image": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/social-share.jpg",
-  "logo": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/lkj-logo.png",
+  "logo": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/icon-512.png",
   "telephone": ["+1-868-295-5909", "+1-868-396-1806"],
   "address": {
     "@type": "PostalAddress",
@@ -94,8 +98,7 @@
 <header class="site-header" id="site-header">
   <div class="header-inner">
     <a href="#home" class="brand">
-      <!-- Logo: upload assets/lkj-logo.png. Hidden automatically if missing. -->
-      <img src="assets/lkj-logo.png" alt="" class="brand-logo" width="48" height="48" decoding="async" data-fallback="self">
+            <img src="assets/lkj-logo.png" alt="" class="brand-logo" width="48" height="48" decoding="async" data-fallback="self">
       <span class="brand-text">
         <span class="brand-name">LKJ Compassionate Hanz</span>
         <span class="brand-sub">Geriatric Care Facility</span>
@@ -658,7 +661,7 @@
 <footer class="site-footer">
   <div class="section-inner footer-grid">
     <div class="footer-brand">
-      <img src="assets/lkj-logo.png" alt="LKJ Compassionate Hanz logo" width="48" height="48" loading="lazy" decoding="async" data-fallback="self">
+      <img src="assets/lkj-logo.png" alt="LKJ Compassionate Hanz logo" class="footer-logo" width="64" height="64" loading="lazy" decoding="async" data-fallback="self">
       <p class="footer-tagline">Professional &bull; Compassionate &bull; Christ-Centered Care</p>
       <p class="footer-desc">A safe, Christ-centered home for seniors in Trinidad and Tobago, where every resident is treated with dignity and love.</p>
     </div>
@@ -696,6 +699,8 @@
     <p>&copy; <span id="copyright-year">2026</span> LKJ Compassionate Hanz Geriatric Care Facility. All rights reserved.</p>
     <p class="footer-legal">
       <a href="privacy-policy.html">Privacy Policy</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="privacy-policy.html#ccpa-rights">Do Not Sell or Share My Personal Information</a>
       <span aria-hidden="true">&middot;</span>
       <a href="https://jamalsamuel.online/" target="_blank" rel="noopener noreferrer">Website by Jamal Samuel</a>
     </p>
