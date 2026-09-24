@@ -78,20 +78,81 @@
     }
   });
 
-  /* ---------- Gallery: show the section as soon as ANY real photo exists ---------- */
+  /* ---------- Gallery: find which photos exist, then choose the layout ---------- */
+  // Each slot is probed directly (not left to lazy-loading), so missing photos are removed up front
+  // and the layout is decided from the real number of photos.
   var gallerySection = doc.querySelector('[data-gallery]');
-  if (gallerySection) {
-    var revealGallery = function () {
-      if (!gallerySection.hidden) return;
-      gallerySection.hidden = false;
-      doc.querySelectorAll('[data-requires="gallery"]').forEach(function (el) { el.hidden = false; });
-    };
-    // Probe each slot's JPG (the universal fallback) without waiting for lazy-loading
-    gallerySection.querySelectorAll('.gallery-item img').forEach(function (img) {
-      var probe = new Image();
-      probe.onload = revealGallery;
-      probe.src = img.getAttribute('src');
+  var galleryTrack = $('gallery-track');
+  var galleryControls = gallerySection ? gallerySection.querySelector('.gallery-controls') : null;
+  var galleryCounter = $('gallery-counter');
+  var STRIP_MIN = 4; // photos needed before phones switch to the swipe strip
+
+  function visibleSlides() {
+    return galleryTrack ? Array.prototype.filter.call(galleryTrack.querySelectorAll('.gallery-slide'), function (li) { return !li.hidden; }) : [];
+  }
+
+  function setGalleryLayout() {
+    var count = visibleSlides().length;
+    if (!count) return;
+    gallerySection.hidden = false;
+    doc.querySelectorAll('[data-requires="gallery"]').forEach(function (el) { el.hidden = false; });
+    var strip = count >= STRIP_MIN;
+    galleryTrack.setAttribute('data-layout', strip ? 'strip' : 'grid');
+    if (galleryControls) galleryControls.hidden = !strip;
+    if (strip) {
+      galleryTrack.setAttribute('tabindex', '0'); // lets keyboard users scroll the strip with arrow keys
+      updateGalleryCounter();
+    } else {
+      galleryTrack.removeAttribute('tabindex');
+    }
+  }
+
+  function currentSlideIndex() {
+    var slides = visibleSlides();
+    var trackLeft = galleryTrack.getBoundingClientRect().left;
+    var best = 0, bestDist = Infinity;
+    slides.forEach(function (li, i) {
+      var d = Math.abs(li.getBoundingClientRect().left - trackLeft);
+      if (d < bestDist) { bestDist = d; best = i; }
     });
+    return best;
+  }
+
+  function updateGalleryCounter() {
+    if (!galleryCounter) return;
+    galleryCounter.textContent = 'Photo ' + (currentSlideIndex() + 1) + ' of ' + visibleSlides().length;
+  }
+
+  function goToSlide(delta) {
+    var slides = visibleSlides();
+    var target = slides[Math.max(0, Math.min(slides.length - 1, currentSlideIndex() + delta))];
+    if (target) {
+      galleryTrack.scrollTo({ left: target.offsetLeft - galleryTrack.offsetLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    }
+  }
+
+  if (gallerySection && galleryTrack) {
+    var slots = galleryTrack.querySelectorAll('.gallery-slide');
+    var pending = slots.length;
+    var settle = function () { pending -= 1; if (pending === 0) setGalleryLayout(); };
+    slots.forEach(function (li) {
+      var img = li.querySelector('img');
+      var probe = new Image();
+      probe.onload = settle;
+      probe.onerror = function () { li.hidden = true; settle(); };
+      probe.src = img.getAttribute('src'); // the JPG is the universal fallback
+    });
+
+    var prevBtn = $('gallery-prev');
+    var nextBtn = $('gallery-next');
+    if (prevBtn) prevBtn.addEventListener('click', function () { goToSlide(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goToSlide(1); });
+
+    var scrollTimer;
+    galleryTrack.addEventListener('scroll', function () {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(updateGalleryCounter, 80);
+    }, { passive: true });
   }
 
   /* ---------- Header scroll state ---------- */
@@ -176,7 +237,7 @@
 
     // Only photos that actually loaded take part in prev/next
     var visibleItems = function () {
-      return allGalleryItems.filter(function (item) { return !item.hidden; });
+      return allGalleryItems.filter(function (item) { return !item.hidden && !(item.closest('.gallery-slide') || {}).hidden; });
     };
     var showImage = function (index) {
       var items = visibleItems();
