@@ -378,37 +378,63 @@
   </section>
 
   <!-- Our Home gallery
-       Starts hidden. js/script.js checks every photo slot; as soon as ANY photo exists, the section and
-       its "Our Home" nav links appear. Slots whose photo is missing hide themselves.
-       Files per slot: assets/gallery-<name>.webp + assets/gallery-<name>.jpg, 800x600 (4:3), under 120KB.
-       Captions and alt text below are provisional: confirm against the real photos before launch. -->
+       HOW TO ADD A PHOTO: copy one <li class="gallery-slide"> block, change the file names, caption and alt text,
+       and upload assets/gallery-<name>.webp + .jpg (800x600, 4:3). Nothing else to change.
+       - Slots whose photo is missing hide themselves; the section appears once any photo exists.
+       - Layout adapts to the number of photos (js/script.js sets data-layout):
+           1-3 photos: grid on every screen
+           4+ photos: swipe strip with arrows + counter on phones; grid on larger screens -->
   <section class="gallery" id="our-home" aria-labelledby="gallery-title" data-gallery hidden>
     <div class="section-inner">
       <p class="eyebrow">Our Home</p>
       <h2 id="gallery-title">Take a Look Inside Our Home</h2>
 
-      <div class="gallery-grid">
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Living Room">
-          <picture>
-            <source type="image/webp" srcset="assets/gallery-living-room.webp">
-            <img src="assets/gallery-living-room.jpg" alt="The shared living room where residents relax and spend time together" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-item">
-          </picture>
-          <span>Living Room</span>
-        </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Bedroom">
-          <picture>
-            <source type="image/webp" srcset="assets/gallery-bedroom.webp">
-            <img src="assets/gallery-bedroom.jpg" alt="A resident bedroom" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-item">
-          </picture>
-          <span>Bedroom</span>
-        </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Kitchen">
-          <picture>
-            <source type="image/webp" srcset="assets/gallery-kitchen.webp">
-            <img src="assets/gallery-kitchen.jpg" alt="The kitchen where residents&rsquo; meals are prepared" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-item">
-          </picture>
-          <span>Kitchen</span>
-        </button>
+      <div class="gallery-wrap">
+        <ul class="gallery-grid" id="gallery-track" data-layout="grid" aria-label="Photos of our home">
+          <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Bedroom One">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-bedroom-1.webp">
+                <img src="assets/gallery-bedroom-1.jpg" alt="A bright shared bedroom with two single beds made up with white linens, a rug between them and a walking frame beside one bed" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Bedroom One</span>
+            </button>
+          </li>
+          <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Bedroom Two">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-bedroom-2.webp">
+                <img src="assets/gallery-bedroom-2.jpg" alt="A shared bedroom seen from the doorway: a single bed with safety rails beneath a curtained window, with a shower chair and a walking frame nearby" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Bedroom Two</span>
+            </button>
+          </li>
+          <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Living Room">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-living-room.webp">
+                <img src="assets/gallery-living-room.jpg" alt="The shared living room" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Living Room</span>
+            </button>
+          </li>
+          <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Kitchen">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-kitchen.webp">
+                <img src="assets/gallery-kitchen.jpg" alt="The kitchen where residents&rsquo; meals are prepared" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Kitchen</span>
+            </button>
+          </li>
+        </ul>
+
+        <!-- Swipe controls: only shown when the strip layout is active -->
+        <div class="gallery-controls" hidden>
+          <button type="button" class="gallery-arrow" id="gallery-prev" aria-label="Previous photo" aria-controls="gallery-track">&#10094;</button>
+          <p class="gallery-counter" id="gallery-counter" aria-live="polite">Photo 1 of 1</p>
+          <button type="button" class="gallery-arrow" id="gallery-next" aria-label="Next photo" aria-controls="gallery-track">&#10095;</button>
+        </div>
       </div>
     </div>
   </section>
