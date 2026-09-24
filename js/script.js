@@ -56,31 +56,42 @@
   }
 
   /* ---------- Missing images: hide the image (or its wrapper) instead of a broken icon ---------- */
+  // Inside a <picture>, a missing WebP does NOT fall back to the JPG by itself. So on the first error
+  // we drop the <source> tags and retry the JPG; only if that also fails do we hide anything.
   function handleBrokenImage(img) {
+    var picture = img.parentElement && img.parentElement.tagName === 'PICTURE' ? img.parentElement : null;
+    if (picture && picture.querySelector('source')) {
+      picture.querySelectorAll('source').forEach(function (src) { src.remove(); });
+      img.addEventListener('error', function () { handleBrokenImage(img); }, { once: true });
+      img.src = img.getAttribute('src'); // retry with the JPG
+      return;
+    }
     var rule = img.getAttribute('data-fallback');
     var target = (!rule || rule === 'self') ? img : img.closest(rule);
     if (target) target.hidden = true;
   }
   doc.querySelectorAll('img[data-fallback]').forEach(function (img) {
-    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) {
+    if (img.complete && img.naturalWidth === 0 && img.currentSrc) {
       handleBrokenImage(img);
     } else {
       img.addEventListener('error', function () { handleBrokenImage(img); }, { once: true });
     }
   });
 
-  /* ---------- Gallery: only show the section once real photos exist ---------- */
+  /* ---------- Gallery: show the section as soon as ANY real photo exists ---------- */
   var gallerySection = doc.querySelector('[data-gallery]');
   if (gallerySection) {
-    var firstGalleryImg = gallerySection.querySelector('.gallery-item img');
-    if (firstGalleryImg) {
+    var revealGallery = function () {
+      if (!gallerySection.hidden) return;
+      gallerySection.hidden = false;
+      doc.querySelectorAll('[data-requires="gallery"]').forEach(function (el) { el.hidden = false; });
+    };
+    // Probe each slot's JPG (the universal fallback) without waiting for lazy-loading
+    gallerySection.querySelectorAll('.gallery-item img').forEach(function (img) {
       var probe = new Image();
-      probe.onload = function () {
-        gallerySection.hidden = false;
-        doc.querySelectorAll('[data-requires="gallery"]').forEach(function (el) { el.hidden = false; });
-      };
-      probe.src = firstGalleryImg.getAttribute('src');
-    }
+      probe.onload = revealGallery;
+      probe.src = img.getAttribute('src');
+    });
   }
 
   /* ---------- Header scroll state ---------- */
