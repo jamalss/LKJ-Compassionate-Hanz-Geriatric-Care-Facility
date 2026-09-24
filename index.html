@@ -1268,6 +1268,33 @@ address { font-style: normal; color: var(--text-muted); margin-bottom: 20px; lin
             </button>
           </li>
           <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Bathroom">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-bathroom.webp">
+                <img src="assets/gallery-bathroom.jpg" alt="A tiled bathroom with a pedestal sink and a glass-panelled shower enclosure with a towel bar" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Bathroom</span>
+            </button>
+          </li>
+          <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Kitchen">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-kitchen.webp">
+                <img src="assets/gallery-kitchen.jpg" alt="The kitchen with a gas stove, wooden cabinets, a large double-door refrigerator and a chest freezer" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Kitchen</span>
+            </button>
+          </li>
+          <li class="gallery-slide">
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Kitchen Sink Area">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-kitchen-2.webp">
+                <img src="assets/gallery-kitchen-2.jpg" alt="The kitchen sink area beneath a wide window with decorative security grilles, with wooden cabinets and a gas stove" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Kitchen Sink Area</span>
+            </button>
+          </li>
+          <li class="gallery-slide">
             <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Dining Area">
               <picture>
                 <source type="image/webp" srcset="assets/gallery-dining-area.webp">
@@ -1283,6 +1310,17 @@ address { font-style: normal; color: var(--text-muted); margin-bottom: 20px; lin
                 <img src="assets/gallery-living-area.jpg" alt="The living area with a brown sectional sofa, a standing fan and a television" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
               </picture>
               <span>Living Area</span>
+            </button>
+          </li>
+          <!-- SHOWER ROOM: switched OFF on purpose (hidden). The photo shows bare walls, an open zinc roof and no grab bars,
+               which works against a care home. To show it anyway, delete the word "hidden" on the next line. -->
+          <li class="gallery-slide" hidden>
+            <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Shower Room">
+              <picture>
+                <source type="image/webp" srcset="assets/gallery-shower.webp">
+                <img src="assets/gallery-shower.jpg" alt="A walk-in shower room with a wall-mounted shower head and taps" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-slide">
+              </picture>
+              <span>Shower Room</span>
             </button>
           </li>
         </ul>
