@@ -50,6 +50,10 @@
 <link id="google-fonts" rel="stylesheet" media="print" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap"></noscript>
 
+<!-- Preload the hero photo that matches the screen size -->
+<link rel="preload" as="image" type="image/webp" href="assets/hero-home-tall.webp" media="(max-width: 700px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="assets/hero-home-wide.webp" media="(min-width: 701px)" fetchpriority="high">
+
 <link rel="stylesheet" href="css/styles.css">
 
 <!-- Structured Data -->
@@ -60,7 +64,10 @@
   "name": "LKJ Compassionate Hanz Geriatric Care Facility",
   "description": "Professional, compassionate, Christ-centered geriatric care facility in Point Fortin, Trinidad and Tobago.",
   "url": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/",
-  "image": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/social-share.jpg",
+  "image": [
+    "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/hero-home-wide.jpg",
+    "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/social-share.jpg"
+  ],
   "logo": "https://jamalss.github.io/LKJ-Compassionate-Hanz-Geriatric-Care-Facility/assets/icon-512.png",
   "telephone": ["+1-868-295-5909", "+1-868-396-1806"],
   "address": {
@@ -159,9 +166,14 @@
   <!-- Hero -->
   <section class="hero" id="home" aria-labelledby="hero-title">
     <div class="hero-media">
-      <!-- Upload assets/hero-care-home.jpg (1920x1080, under 200KB, WebP ideal).
-           If missing, the navy gradient background shows instead. -->
-      <img src="assets/hero-care-home.jpg" alt="A peaceful Caribbean-style residence with warm natural light and tropical greenery" loading="eager" fetchpriority="high" decoding="async" width="1920" height="1080" data-fallback="self">
+      <!-- Hero photo: art-directed. Phones get the tall crop, larger screens the wide crop.
+           WebP first, JPG fallback. If a file is missing, the brand gradient shows instead. -->
+      <picture>
+        <source media="(max-width: 700px)" type="image/webp" srcset="assets/hero-home-tall.webp" width="750" height="829">
+        <source media="(max-width: 700px)" srcset="assets/hero-home-tall.jpg" width="750" height="829">
+        <source type="image/webp" srcset="assets/hero-home-wide.webp" width="966" height="543">
+        <img src="assets/hero-home-wide.jpg" alt="The LKJ Compassionate Hanz residence in Guapo: a two-storey home with covered verandas and a wide tiled courtyard" loading="eager" fetchpriority="high" decoding="async" width="966" height="543" data-fallback="self">
+      </picture>
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
@@ -366,39 +378,36 @@
   </section>
 
   <!-- Our Home gallery
-       Starts hidden. js/script.js checks whether the first photo exists; if it does, the section
-       and its nav links appear automatically. No code edit needed once assets/ is uploaded.
-       Required files (600x450, under 120KB each): room.jpg, lounge.jpg, dining.jpg, garden.jpg,
-       walkway.jpg, reflection-space.jpg. Any single missing photo is hidden on its own. -->
+       Starts hidden. js/script.js checks every photo slot; as soon as ANY photo exists, the section and
+       its "Our Home" nav links appear. Slots whose photo is missing hide themselves.
+       Files per slot: assets/gallery-<name>.webp + assets/gallery-<name>.jpg, 800x600 (4:3), under 120KB.
+       Captions and alt text below are provisional: confirm against the real photos before launch. -->
   <section class="gallery" id="our-home" aria-labelledby="gallery-title" data-gallery hidden>
     <div class="section-inner">
       <p class="eyebrow">Our Home</p>
       <h2 id="gallery-title">Take a Look Inside Our Home</h2>
 
       <div class="gallery-grid">
+        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Living Room">
+          <picture>
+            <source type="image/webp" srcset="assets/gallery-living-room.webp">
+            <img src="assets/gallery-living-room.jpg" alt="The shared living room where residents relax and spend time together" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-item">
+          </picture>
+          <span>Living Room</span>
+        </button>
         <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Bedroom">
-          <img src="assets/room.jpg" alt="A comfortable, well-lit resident bedroom" loading="lazy" decoding="async" width="600" height="450" data-fallback=".gallery-item">
+          <picture>
+            <source type="image/webp" srcset="assets/gallery-bedroom.webp">
+            <img src="assets/gallery-bedroom.jpg" alt="A resident bedroom" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-item">
+          </picture>
           <span>Bedroom</span>
         </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Sitting Area">
-          <img src="assets/lounge.jpg" alt="A welcoming shared sitting area" loading="lazy" decoding="async" width="600" height="450" data-fallback=".gallery-item">
-          <span>Sitting Area</span>
-        </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Dining Space">
-          <img src="assets/dining.jpg" alt="A bright, communal dining space" loading="lazy" decoding="async" width="600" height="450" data-fallback=".gallery-item">
-          <span>Dining Space</span>
-        </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Tropical Garden">
-          <img src="assets/garden.jpg" alt="A tropical garden with shaded seating" loading="lazy" decoding="async" width="600" height="450" data-fallback=".gallery-item">
-          <span>Tropical Garden</span>
-        </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Accessible Walkway">
-          <img src="assets/walkway.jpg" alt="An accessible walkway through the grounds" loading="lazy" decoding="async" width="600" height="450" data-fallback=".gallery-item">
-          <span>Accessible Walkway</span>
-        </button>
-        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Reflection Space">
-          <img src="assets/reflection-space.jpg" alt="A quiet space for prayer and reflection" loading="lazy" decoding="async" width="600" height="450" data-fallback=".gallery-item">
-          <span>Reflection Space</span>
+        <button type="button" class="gallery-item" aria-haspopup="dialog" aria-label="Open larger photo: Kitchen">
+          <picture>
+            <source type="image/webp" srcset="assets/gallery-kitchen.webp">
+            <img src="assets/gallery-kitchen.jpg" alt="The kitchen where residents&rsquo; meals are prepared" loading="lazy" decoding="async" width="800" height="600" data-fallback=".gallery-item">
+          </picture>
+          <span>Kitchen</span>
         </button>
       </div>
     </div>
@@ -698,9 +707,11 @@
   <div class="footer-bottom section-inner">
     <p>&copy; <span id="copyright-year">2026</span> LKJ Compassionate Hanz Geriatric Care Facility. All rights reserved.</p>
     <p class="footer-legal">
-      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="legal.html#privacy">Privacy Policy</a>
       <span aria-hidden="true">&middot;</span>
-      <a href="privacy-policy.html#ccpa-rights">Do Not Sell or Share My Personal Information</a>
+      <a href="legal.html#terms">Terms of Use</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="legal.html#ccpa-rights">Do Not Sell or Share My Personal Information</a>
       <span aria-hidden="true">&middot;</span>
       <a href="https://jamalsamuel.online/" target="_blank" rel="noopener noreferrer">Website by Jamal Samuel</a>
     </p>
