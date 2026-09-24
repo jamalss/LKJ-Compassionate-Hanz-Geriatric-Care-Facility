@@ -696,3 +696,108 @@ address { font-style: normal; color: var(--text-muted); margin-bottom: 20px; lin
 .legal-page a { color: var(--whatsapp-dark); font-weight: 600; }
 .legal-updated { color: var(--text-subtle); font-size: 0.9rem; }
 .back-link { display: inline-block; margin-bottom: 24px; color: var(--navy); font-weight: 700; }
+
+/* Footer logo: the emblem's navy figure disappears on navy, so it sits on a cream badge */
+.footer-brand .footer-logo { background: var(--cream); border-radius: 50%; padding: 6px; box-sizing: content-box; }
+
+/* Legal page (legal.html) ------------------------------------------------------------------------ */
+.legal-page .section-inner { max-width: 860px; }
+.legal-summary {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--sage-text);
+  border-radius: var(--radius-md);
+  padding: 24px 24px 12px;
+  margin: 28px 0;
+}
+.legal-summary h2 { font-size: 1.6rem; margin-top: 0; }
+.legal-page ul.check-list { list-style: none; padding-left: 0; }
+.check-list li { position: relative; padding-left: 30px; margin-bottom: 10px; }
+.check-list li::before {
+  content: '\2713';
+  position: absolute; left: 0; top: 1px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--sage-text); color: var(--white);
+  font-size: 0.75rem; line-height: 20px; text-align: center; font-weight: 700;
+}
+.legal-toc {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 36px;
+}
+.legal-toc h2 { font-size: 1.4rem; margin: 0 0 10px; }
+.toc-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px 32px; }
+.toc-part { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sage-text); margin: 6px 0; }
+.legal-page .legal-toc ol { padding-left: 1.6em; margin: 0 0 8px; }
+.legal-toc li { margin-bottom: 4px; }
+.legal-page .legal-toc a { font-weight: 500; color: var(--navy); }
+@media (max-width: 640px) { .toc-cols { grid-template-columns: 1fr; } }
+
+.legal-part {
+  margin: 48px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gold);
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  font-size: 0.85rem; color: var(--navy);
+}
+.legal-section { padding: 0; margin-bottom: 8px; }
+.legal-section h3 { font-size: 1.25rem; margin-top: 1.4em; }
+.legal-address { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; margin: 0 0 1em; }
+.legal-highlight {
+  background: #E7F2EA;
+  border: 1px solid #B9D6C1;
+  border-radius: var(--radius-md);
+  padding: 4px 24px 12px;
+  margin-top: 28px;
+}
+.legal-answer { font-size: 1.1rem; }
+.legal-emergency {
+  background: #FBF1DE;
+  border-left: 5px solid #A63A1C;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px 2px;
+  margin: 16px 0;
+}
+.legal-contact { display: flex; gap: 14px; flex-wrap: wrap; margin: 18px 0; }
+.legal-page .legal-contact a { color: var(--white); }
+.legal-end { margin-top: 36px; text-align: center; }
+
+.table-wrap { overflow-x: auto; margin: 0 0 1em; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--white); }
+.legal-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; min-width: 520px; }
+.legal-table th, .legal-table td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.legal-table thead th { background: var(--navy); color: var(--white); font-weight: 700; }
+.legal-table tbody th { font-weight: 700; color: var(--navy); }
+.legal-table tbody tr:last-child > * { border-bottom: none; }
+.legal-page .legal-table a { color: var(--whatsapp-dark); }
+
+/* Hero photo (art-directed <picture>) ------------------------------------------------------------ */
+.hero-media picture { display: block; width: 100%; height: 100%; }
+/* Desktop/tablet: veil darkens left-to-right, so the text side is dark and the verandas on the right show through */
+.hero-media img { object-position: 60% 40%; }
+.hero-overlay {
+  background:
+    linear-gradient(180deg, rgba(10,33,64,0) 55%, rgba(10,33,64,0.75) 100%),
+    linear-gradient(90deg, rgba(10,33,64,0.93) 0%, rgba(10,33,64,0.86) 38%, rgba(15,45,82,0.50) 62%, rgba(63,90,61,0.28) 100%);
+}
+/* Phones: the house sits in the top band; the veil deepens under the text */
+@media (max-width: 700px) {
+  .hero-media img { object-position: 50% 0%; }
+  .hero-overlay {
+    background:
+      linear-gradient(180deg, rgba(10,33,64,0.10) 0%, rgba(10,33,64,0.22) 15%, rgba(10,33,64,0.88) 30%, rgba(10,33,64,0.95) 100%),
+      linear-gradient(160deg, rgba(15,45,82,0.25) 0%, rgba(63,90,61,0.20) 100%);
+  }
+}
+
+/* Gallery items use <picture> */
+.gallery-item picture { display: block; }
+/* Eyebrow sits over the brighter part of the photo, so it gets its own dark backing (keeps gold text above 4.5:1) */
+.hero .eyebrow {
+  display: inline-block;
+  background: rgba(10, 33, 64, 0.88);
+  padding: 6px 14px;
+  border-radius: 999px;
+  line-height: 1.5;
+}
