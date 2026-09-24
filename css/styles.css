@@ -801,3 +801,50 @@ address { font-style: normal; color: var(--text-muted); margin-bottom: 20px; lin
   border-radius: 999px;
   line-height: 1.5;
 }
+
+/* Gallery: adaptive grid / swipe strip ------------------------------------------------------------ */
+.gallery-grid { list-style: none; padding: 0; }
+.gallery-slide { margin: 0; }
+.gallery-slide .gallery-item { width: 100%; display: block; }
+
+/* Strip layout: phones only, and only when there are 4+ photos (set by js/script.js) */
+@media (max-width: 700px) {
+  .gallery-grid[data-layout="strip"] {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    padding: 4px 16px 8px;
+    margin: 32px -16px 0;          /* bleed to the screen edges so the next photo peeks in */
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-grid[data-layout="strip"]::-webkit-scrollbar { display: none; }
+  .gallery-grid[data-layout="strip"] .gallery-slide {
+    flex: 0 0 84%;                  /* ~16% of the next photo shows, so people know to swipe */
+    scroll-snap-align: start;
+  }
+}
+.gallery-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 16px; }
+@media (min-width: 701px) { .gallery-controls { display: none !important; } }
+.gallery-arrow {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid var(--navy); background: var(--white); color: var(--navy);
+  font-size: 1rem; line-height: 1;
+}
+.gallery-arrow:hover { background: var(--navy); color: var(--white); }
+.gallery-counter { margin: 0; font-weight: 700; font-size: 0.92rem; color: var(--navy); min-width: 100px; text-align: center; }
+
+/* Header fit: with the "Our Home" link visible there are 8 links, so keep every label on one line
+   and switch to the menu button a bit earlier, before anything can wrap */
+.main-nav a, .header-cta, .brand-name { white-space: nowrap; }
+.main-nav { padding-left: 24px; }
+.main-nav ul { gap: 20px; }
+@media (max-width: 1259px) {
+  .main-nav, .header-cta { display: none; }
+  .hamburger { display: flex; }
+}
+.brand { flex-shrink: 0; }
+/* Full menu needs ~1266px (measured), so the header may run wider than the 1200px page content */
+.header-inner { max-width: 1320px; }
