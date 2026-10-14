@@ -1,0 +1,7 @@
+# robots.txt — LKJ Compassionate Hanz Geriatric Care Facility
+# Served from the root of the custom domain, so search engines read this file.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.lkjcompassionatehanzgeriatriccare.com/sitemap.xml
